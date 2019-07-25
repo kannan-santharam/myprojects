@@ -404,9 +404,6 @@
         <div class="row resetAPI">
             <div class="col-md-12">
                 <a id="resetKey">Reset API Key</a>
-                <button type="button" class="btn btn-primary" id="newReward">
-                    New reward
-                </button>
             </div>
 
         </div>
@@ -431,7 +428,7 @@
 
         <!--Reward List-->
         <div class="row yourInput hide">
-
+            your content goes here..
         </div>
     </div>
     <script type="text/template" id="addGroupAgent">
@@ -537,7 +534,7 @@
 
         function hideFdInput() {
             changeVerifyButton();
-            $(".resetAPI").show();
+            $(".resetAPI,yourInput").show();
             $(".loginSection").hide();
             clickevents();
         }
