@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="https://static.freshdev.io/fdk/2.0/assets/freshdesk.css">
+    <script src="https://static.freshdev.io/fdk/2.0/assets/fresh_client.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+        crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-size: 16px;
+            background-color: #FAFAFA;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        label,
+        .labels {
+            font-size: 14px;
+            color: #475867;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 20px;
+        }
+
+        h3 {
+            color: #12344D;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        h4,
+        .text {
+            color: #12344D;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 24px;
+        }
+
+        h5 {
+            color: #475867;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        input[type='radio'] {
+            margin-right: 3px;
+            border: 0;
+            height: 9px;
+        }
+
+        input[type='radio']:hover {
+            border: 0;
+        }
+
+        input[type='radio']:checked:before {
+            height: 14px;
+            width: 14px;
+            border-radius: 7px;
+            background-color: #2E6ED8;
+            border: solid 1px #2E6ED8;
+        }
+
+        input[type='radio']:checked {
+            border: 0 !important;
+            background-color: transparent !important;
+        }
+
+        input[type='radio']:before {
+            height: 14px;
+            width: 14px;
+            border: 1px solid #6C7684;
+            border-radius: 7px;
+            background-color: #FFFFFF;
+            box-shadow: inset 0 1px 2px 0 #F7F9FA;
+        }
+
+        .resetAPI {
+            display: none;
+        }
+
+        .resetAPI {
+            padding: 0px 20px 15px 0;
+            position: fixed;
+            right: 0;
+            z-index: 99;
+            width: 100%;
+            text-align: right;
+            background-color: #fafafa;
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, .2);
+            border-bottom: 1px solid #eee;
+            margin: 0;
+        }
+
+        .resetAPI a {
+            color: #2C5CC5 !important;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .resetAPI button#newReward {
+            margin-left: 20px;
+        }
+
+        .fdinput {
+            box-sizing: border-box;
+            border: 1px solid #CFD7DF;
+            border-radius: 4px;
+            background-color: #FFFFFF;
+            box-shadow: inset 0 1px 2px 0 rgba(24, 50, 71, 0.05);
+            padding: 5px 12px;
+            margin-top: 5px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        textarea.fdinput {
+            min-height: 210px;
+            resize: vertical;
+        }
+
+        .fdinput:hover,
+        .select2-selection:hover {
+            border: 1px solid #475867 !important;
+            transition: .2s linear;
+        }
+
+        .fdinput:focus {
+            outline: 0 !important;
+            background: #fff;
+            border: 1px solid transparent !important;
+            box-shadow: 0 0 0 2px #2c5cc5 !important;
+        }
+
+
+
+        .btn {
+            font-size: 14px;
+            text-transform: none;
+        }
+
+        .btnSection {
+            text-align: center;
+            padding: 22px;
+        }
+
+        .btn-primary {
+            box-sizing: border-box;
+            height: 33px;
+            border: 1px solid #12344D;
+            border-radius: 4px;
+            background: linear-gradient(180deg, #264966 0%, #12344D 100%);
+            box-shadow: 0 1px 0 0 rgba(24, 50, 71, 0.05);
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 18px;
+            text-align: center;
+            padding: 6px 10px;
+        }
+
+        .btn-primary:focus,
+        .btn-primary:hover,
+        .btn-primary:active {
+            outline: 0 !important;
+            background-color: #174262 !important;
+            border: 1px solid #174262 !important;
+            transition: .1s linear;
+        }
+
+        .errmsg {
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px 0 rgba(18, 52, 77, 0.06), 0 2px 16px 0 rgba(18, 52, 77, 0.16);
+            padding: 10px 10px 10px 0;
+            min-width: 370px;
+            max-width: 450px;
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            right: -100%;
+            border-top: 3px solid #E43538;
+            transition: .3s;
+        }
+
+        .errmsg.success {
+            border-top: 3px solid #5cb85c !important;
+
+        }
+
+        .errmsg i.icircle {
+            font-size: 25px;
+            color: #E43538;
+            right: -8px;
+        }
+
+        .errmsg i.icircle.success {
+            color: #00A886;
+        }
+
+        .errmsg i.fa-times {
+            right: 7px;
+            padding: 2px 5px;
+        }
+
+        .errmsg i.fa-times:hover {
+
+            background-color: #EBEFF3;
+
+            border-radius: 4px;
+        }
+
+        .errmsg i {
+            top: 50%;
+            position: absolute;
+            cursor: pointer;
+            transform: translateY(-50%);
+        }
+
+
+        /* Select2 css start*/
+
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .select2-container .select2-selection--multiple {
+            border: 1px solid #CFD7DF !important;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 2px 0 rgba(24, 50, 71, 0.05) !important;
+        }
+
+        .select2-container .select2-selection--multiple .select2-selection__rendered {
+            display: block !important;
+        }
+
+        .select2-container li.select2-selection__choice {
+            padding: 4px 6px 4px 9px !important;
+            color: #12344D !important;
+            border-radius: 4px !important;
+            background-color: #EBEFF3 !important;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 20px;
+            border: 0 !important;
+            margin: 4px 5px 4px 0;
+        }
+
+        .select2-container--focus .select2-selection,
+        .select2-container--open .select2-selection {
+            outline: 0 !important;
+            background: #fff;
+            border: 1px solid transparent !important;
+            box-shadow: 0 0 0 2px #2c5cc5 !important;
+            border-radius: 4px !important;
+        }
+
+        .select2-container span.select2-selection__choice__remove {
+            float: right;
+            margin: 0 0 0 12px !important;
+            font-size: 17px;
+            color: #183247 !important;
+            position: relative;
+            top: -1px;
+            left: 0px;
+        }
+
+        .select2-container span.select2-dropdown {
+            border: 0;
+            padding: 8px;
+            box-shadow: 0 2px 18px 0 rgba(18, 52, 77, .16), 0 2px 4px 0 rgba(18, 52, 77, .06);
+        }
+
+        .select2-container .select2-results__option[aria-selected=true] {
+            background-color: #e5f2fd;
+            color: #2c5cc5 !important;
+            font-weight: 600;
+        }
+
+        .select2-container li.select2-results__option {
+            cursor: pointer;
+            padding: 6px 30px 7px 8px;
+            font-size: 14px;
+            border-radius: 4px;
+            line-height: 1.3;
+            margin: 5px 0;
+        }
+
+        .select2-container .select2-results__option--highlighted[aria-selected] {
+            background-color: #ebeff2;
+            color: rgb(24, 50, 71) !important;
+        }
+
+        span.select2-dropdown {
+            padding: 8px;
+            border: 0 !important;
+            box-shadow: 0 2px 18px 0 rgba(18, 52, 77, .16), 0 2px 4px 0 rgba(18, 52, 77, .06);
+            border-radius: 4px !important;
+            position: relative;
+            top: 2px;
+        }
+
+        .select2-container .select2-search__field {
+            box-sizing: border-box;
+            border: 1px solid #CFD7DF;
+            border-radius: 4px;
+            background-color: #FFFFFF;
+            box-shadow: inset 0 1px 2px 0 rgba(24, 50, 71, 0.05);
+            margin-top: 5px;
+        }
+
+        .select2-container .select2-search__field:hover,
+            {
+            border: 1px solid #475867 !important;
+            transition: .2s linear;
+        }
+
+        .select2-container .select2-search__field:focus {
+            outline: 0 !important;
+            background: #fff;
+            border: 1px solid transparent !important;
+            box-shadow: 0 0 0 2px #2c5cc5 !important;
+        }
+
+        .select2-selection--multiple .select2-search__field:focus {
+
+            box-shadow: 0 0 0 0 !important;
+        }
+
+        .select2-selection--single {
+            height: 34px !important;
+            border: 1px solid #CFD7DF !important;
+            border-radius: 4px !important;
+            background-color: #FFFFFF !important;
+            box-shadow: inset 0 1px 2px 0 rgba(24, 50, 71, 0.05);
+        }
+
+        .select2-selection--single .select2-selection__arrow {
+            top: 4px !important;
+            right: 5px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 31px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #12344D;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /*Select2 css end*/
+
+        .fa#removeGroup {
+            position: relative;
+            top: 25px;
+            color: #E43538;
+            cursor: pointer;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="row errmsg">
+        <div class="col-md-1">
+            <i class="fa fa-times-circle icircle"></i>
+            <i class="fa fa-check-circle icircle hide success"></i>
+        </div>
+        <div class="col-md-10" id="errorMessage" style="font-size: 14px;"></div>
+        <div class="col-md-1">
+            <i class="fa fa-times" id="closeError"></i>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row resetAPI">
+            <div class="col-md-12">
+                <a id="resetKey">Reset API Key</a>
+                <button type="button" class="btn btn-primary" id="newReward">
+                    New reward
+                </button>
+            </div>
+
+        </div>
+
+        <div class="row loginSection">
+            <div class="col-md-12 col-sm-12">
+                <label>
+                    Freshdesk URL :
+                </label>
+                <input class="fdinput" type="text" id="fdurl" placeholder="https://domain.freshdesk.com" />
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <label>
+                    Freshdesk API Key:
+                </label>
+                <input class="fdinput" type="text" id="api_key" placeholder="API Key" />
+            </div>
+            <div class="col-md-12 btnSection">
+                <button type="button" class="btn btn-primary" id="verifyFreshdesk">Verify Freshdesk Account</button>
+            </div>
+        </div>
+
+        <!--Reward List-->
+        <div class="row yourInput hide">
+
+        </div>
+    </div>
+    <script type="text/template" id="addGroupAgent">
+    <div class="col-md-12 gaConfigure">
+        <div class="col-md-1 smallDiv">
+          <i class="fa fa-minus-circle" id="removeGroup"></i>
+        </div>
+        <div class="col-md-3 group">
+          <div class="labelName">
+            Group
+          </div>
+          <div>
+            <select class="selectgroup">
+            
+            </select>
+          </div>
+        </div>
+        <div class="col-md-8 agent">
+          <div class="labelName">
+            Eligible agents
+          </div>
+          <div>
+            <select class="selectagent" >
+           
+            </select>
+          </div>
+        </div>
+      </div>
+  </script>
+    <script type="text/javascript">
+
+        function getConfigs(configs) {
+            savedIparams = configs.saveConfigs;
+            $("#fdurl").val(savedIparams.fdurl);
+            $("#api_key").val(savedIparams.api_key);
+            $("#verifyFreshdesk").trigger("click");
+        }
+
+        function postConfigs() {
+
+        }
+        function validate() {
+            validation = 1;
+            if ($("#fdurl").val() <= 14 && $("#api_key").val() < 5) {
+                showErrorMessage("e", "Invalid Credentials");
+                return false;
+            }
+            if (validation) {
+                return true;
+            }
+            showErrorMessage("e", "Something went wrong");
+            return false;
+        }
+
+        function prePopulateValues() {
+
+        }
+
+        $(document).ready(function () {
+            window.validation = 1;
+            window.ticketfields = "";
+            app.initialized().then(function (client) {
+                iclient = client;
+            }).catch(function (er) {
+                console.log(er);
+            });
+            elementEvents();
+        });
+        function elementEvents() {
+            $("#closeError").click(function () {
+                $(".errmsg").animate({
+                    "right": "-100%"
+                })
+            });
+            $("#verifyFreshdesk").click(function () {
+                $("#verifyFreshdesk").html("<i>Verifying Freshdesk Account... </i>");
+                $("#verifyFreshdesk").attr("disabled", "disabled");
+                var url = $("#fdurl").val() + "/api/v2/ticket_fields";
+                getTicketFields(url);
+
+            });
+        }
+
+        function getTicketFields(url) {
+            apiCall(url).then(function (data) {
+                ticketfields = JSON.parse(data.response);
+                hideFdInput();
+            }).catch(errorHandler)
+
+        }
+        function getGroups() {
+            var groups = ticketfields.find(t => t.name == "group").choices;
+            var groupChoices = "";
+            $.each(groups, function (i, v) {
+                groupChoices = groupChoices + "<option value='" + v + "'>" + i + "</option>";
+            });
+            return groupChoices;
+        }
+        function changeVerifyButton() {
+            $("#verifyFreshdesk").html("Verify Freshdesk Account");
+            $("#verifyFreshdesk").removeAttr("disabled");
+        }
+
+        function hideFdInput() {
+            changeVerifyButton();
+            $(".resetAPI").show();
+            $(".loginSection").hide();
+            clickevents();
+        }
+        function clickevents() {
+            $(".resetAPI a#resetKey").off().click(function () {
+                $(".resetAPI").hide();
+                $(".loginSection").show();
+                $("html,body").animate({
+                    scrollTop: 0
+                }, 100)
+            });
+
+            $(".rewardEligibilityPanel .addGroup").off().click(function () {
+                var grouphtml = $($("#addGroupAgent").html());
+                addGroupEvent();
+                disableSingleSelect();
+                //select non disabled value
+                var nonDisableValue = $("select.selectgroup").last().find("option").not(":disabled").first().val();
+                $("select.selectgroup").last().val(nonDisableValue).trigger("change");
+                addGroupChangeEvent($(".rewardEligibilityPanel #groupAgent").find(".selectgroup").last());
+            });
+        }
+        function removeDuplicates(myarray) {
+            return myarray.filter(function (elem, index, self) {
+                return index === self.indexOf(elem);
+            });
+        }
+
+        function addGroupEvent() {
+            $(".rewardEligibilityPanel #groupAgent").append($($("#addGroupAgent").html()));
+            $(".rewardEligibilityPanel #groupAgent").find(".selectgroup").last().html(getGroups());
+            $(".rewardEligibilityPanel #groupAgent").find(".selectgroup option")
+           
+            // initialize select2 here
+        }
+        function errorHandler(err) {
+            showErrorMessage("e", err);
+        }
+        function getHeaders() {
+            return {
+                Authorization: "Basic " + btoa($("#api_key").val() + ":*")
+            };
+        }
+        function apiCall(url) {
+            var options = {
+                headers: getHeaders()
+            }
+            return new Promise(function (resolve, reject) {
+                iclient.request.get(url, options).then(function (data) {
+                    resolve(data);
+                }, function (err) {
+                    reject(err);
+
+                });
+            });
+        }
+        function showErrorMessage(type, message) {
+            validation = 0;
+            message.response != undefined ? message = message.response.replace(/{|}/g, "") : message;
+            $(".errmsg").animate({
+                "right": "25px"
+            })
+            $(".errmsg #errorMessage").html(message);
+            if (type != "e") {
+                $(".errmsg").addClass("success");
+                $(".errmsg i.icircle").addClass("hide");
+                $(".errmsg i.success").removeClass("hide");
+            } else {
+                $(".errmsg i.icircle").removeClass("hide");
+                $(".errmsg i.success").addClass("hide");
+                $(".errmsg").removeClass("success");
+            }
+            clearTimeout(setTime);
+            var setTime = setTimeout(function () {
+                $(".errmsg").animate({
+                    "right": "-100%"
+                })
+            }, 6000);
+            changeVerifyButton();
+        }
+    </script>
+</body>
+
+</html>
