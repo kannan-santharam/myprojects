@@ -582,14 +582,8 @@
             var options = {
                 headers: getHeaders()
             }
-            return new Promise(function (resolve, reject) {
-                iclient.request.get(url, options).then(function (data) {
-                    resolve(data);
-                }, function (err) {
-                    reject(err);
-
-                });
-            });
+            return iclient.request.get(url, options)
+          
         }
         function showErrorMessage(type, message) {
             validation = 0;
